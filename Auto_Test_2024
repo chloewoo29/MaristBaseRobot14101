@@ -1,0 +1,100 @@
+package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.util.ElapsedTime;
+
+
+@Autonomous(name="Auto_Test_2024", group="Training")
+//@Disabled
+public class Auto_Test_2024 extends LinearOpMode {
+
+    /* Declare OpMode members. */
+    MaristBaseRobot2024_Quad robot   = new MaristBaseRobot2024_Quad();   
+    private ElapsedTime runtime = new ElapsedTime();
+        
+
+    @Override
+    public void runOpMode() {
+
+        /*
+         * Initialize the drive system variables.
+         * The init() method of the hardware class does all the work here
+         */
+        robot.init(hardwareMap);
+
+        // Send telemetry message to signify robot waiting;
+        telemetry.addData("Status", "Ready to run");    //
+        telemetry.update();
+
+        // Wait for the game to start (driver presses PLAY)
+        waitForStart();
+
+        // Perform the steps of Autonomous One Step at a Time.
+        // MARIST: Add Code here!
+        robot.leftHand.setPosition(0.15);
+        scorePreload();
+
+        
+        
+        // Autonomous Finished
+        telemetry.addData("Path", "Complete");
+        telemetry.update();
+        //sleep(1000);
+    }
+    // Sample Delay Code
+    // t is in seconds
+    public void delay(double t) { // Imitates the Arduino delay function
+        runtime.reset();
+        while (opModeIsActive() && (runtime.seconds() < t)) {
+            //telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
+            //telemetry.update();
+        }
+    }
+
+    // Autonomous code CHANGE MEASUREMENTS
+    public void scorePreload() {
+
+        robot.strafeInches(26, 0.5);
+        robot.turn(-42, 0.5);
+        robot.move(26, 0.3);
+        robot.leftArmMotorDeg(0.6, 80, 5);
+        robot.rightArmMotorDeg(0.5, -45, 5);
+        robot.leftHand.setPosition(0.5);
+        delay(1);
+        robot.rightArmMotorDeg(0.5, 45, 5);
+        robot.leftArmMotorDeg(0.5, -80, 5);
+        robot.leftHand.setPosition(0);//opens grasper
+        robot.leftHand.setPosition(1);//closes grasper
+        robot.leftArmMotorDeg(0.5, -250, 5);
+    }
+    //parking
+    public void parking() {
+
+    }
+    //step 2 autonomous
+    public void autoOne() {
+        robot.move(5, 0.5);
+        delay(1);
+        robot.turnRight(90, 0.3);
+        delay(1);
+        robot.move(24, 0.5);
+        delay(1);
+        robot.leftHand.setPosition(0);
+        delay(1);
+        robot.leftHand.setPosition(1);
+        delay(1);
+        robot.turnLeft(180, 0.3);
+        delay(1);
+        robot.move(24, 0.5);
+        robot.leftHand.setPosition(0);
+        robot.leftHand.setPosition(1);
+    }
+
+
+
+
+
+}
+
+
